@@ -86,7 +86,7 @@ body {
   transition: .2s ease-in-out;
 }
 
-.menu__cards, .menu__card {
+.menu__card {
   display: inline-block;
   position: fixed;
 }
@@ -162,7 +162,7 @@ body {
 
 @media (max-width: 500px) {
 
-  .page__background  {
+  .page__back  {
     height: 100%;
     width: 100%;
   }
@@ -175,7 +175,7 @@ body {
     padding-top: 10%;
   }
 
-  .menu__subtitle {
+  .menu__text {
     font-size: 15px;
     margin-bottom: 5%;
   }
@@ -204,7 +204,7 @@ body {
 
 @media (min-width: 500px) {
 
-  .page__background  {
+  .page__back  {
     height: 100%;
     position: fixed;
     width: 100%;
@@ -227,7 +227,7 @@ body {
 
 @media (min-width: 800px) {
 
-  .page__background  {
+  .page__back  {
     width: 1745px;
   }
 
@@ -254,7 +254,7 @@ body {
 
 @media (min-width: 1200px) {
 
-  .page__background  {
+  .page__back  {
     height: 100%;
     }
 }
@@ -268,14 +268,14 @@ body {
 
 @media (min-width: 1600px) {
 
-  .page__background  {
+  .page__back {
     width: 100%;
   }
 }
 
 @media (min-width: 1745px) {
 
-  .page__background  {
+  .page__back  {
     width: 100%;
   }
 }
