@@ -1,51 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>Игра "Найди баг"</title>
-  <link rel="stylesheet" href="./style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <meta name="viewport" content="initial-scale=1.0, width=device-width">
-</head>
-<body>
-  <header class="header">
-    <img src="image/background.png" alt="Background" class="page__back">
-  </header>
-  <section class="menu" id="menu">
-    <h1 class="menu__title">Выберите уровень сложности:</h1>
-    <h5 class="menu__text">Выберите сложность и игра начнется. Чем выше уровень - тем больше будет выборка карт.</h5>
-    <div class="menu__options">
-      <div>
-        <div class="level">
-          <h2 class="check selected" id="easyCheck"></h2>
-        </div>
-        <h2 class="menu__option" id="easyLvl">Простой</h2>
+  <head>
+    <meta charset="UTF-8">
+    <title>Игра "Найди баг"</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1 class="title">Выберите уровень сложности:</h1>
+      <h2 class="subtitle">Выберите сложность и игра начнется. Чем выше уровень - тем больше будет выборка карт.</h2>
+      <div class="level" id="level">
+        <p class="level__game">Простой</p>
+        <p class="level__game">Средний</p>
+        <p class="level__game">Сложный</p>
       </div>
-      <div>
-        <div class="level">
-          <h2 class="check" id="midCheck"></h2>
-        </div>
-        <h2 class="menu__option" id="midLvl">Средний</h2>
-      </div>
-      <div>
-        <div class="level">
-          <h2 class="check" id="heavyCheck"></h2>
-        </div>
-        <h2 class="menu__option" id="heavyLvl">Сложный</h2>
-      </div>
+      <a href="#" class="button" id="button">Начать игру</a>
+      <div class="card1"></div>
+      <div class="card2"></div>
     </div>
-    <div class="menu__bottom">
-      <button type="button" class="menu__btn" id="confirmBtn">Начать игру</button>
-      <div class="menu__card">
-        <img src="image/card2.png" alt="Нижняя карта" class="menu__card menu__card_back">
-        <img src="image/card1.png" alt="Верхняя карта" class="menu__card menu__card_front">
-      </div>
-    </div>
-  </section>
-  <section class="game displayNone" id="game">
-    <div class="cardsIn1" id="cardsIn">
-    </div>
-  </section>
-  <script src="./script.js"></script>
-</body>
+    <div class="wrap-game"></div>
+    <script type="text/javascript" src="./script.js"></script>
+  </body>
 </html>

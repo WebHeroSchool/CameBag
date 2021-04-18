@@ -1,122 +1,75 @@
-const easyCheck = document.getElementById('easyCheck');
-const midCheck = document.getElementById('midCheck');
-const heavyCheck = document.getElementById('heavyCheck');
-const easyLvl = document.getElementById('easyLvl');
-const midLvl = document.getElementById('midLvl');
-const heavyLvl = document.getElementById('heavyLvl');
-const btn = document.getElementById('confirmBtn');
-const menu = document.getElementById('menu');
-const game = document.getElementById('game');
-const cardsIn = document.getElementById('cardsIn');
-let lvl = 0;
-let cardsInLine = 3;
-let cardsLines = 1;
-let cardsNumb = 3;
+const button = document.getElementById('button');
+const level = document.getElementById('level');
+const wrapperGame = document.querySelector('.wrap-game');
 
-easyLvl.addEventListener('click', () => {
-  lvl = 0;
-  cardsNumb = 3;
-  cardsInLine = 3;
-  cardsLines = 1;
-  easyCheck.classList.add('selected');
-  midCheck.classList.remove('selected');
-  heavyCheck.classList.remove('selected');
-  cardsIn.classList.add('cardsIn1');
-  cardsIn.classList.remove('cardsIn2');
-});
+let levels = document.querySelectorAll('.level__game');
+levels.forEach(level => {
+  level.addEventListener('click', () => {
+    levels.forEach(lvl => lvl.classList.remove('active'));
+    level.classList.add('active');
+  })
+})
 
-midLvl.addEventListener('click', () => {
-  lvl = 1;
-  cardsNumb = 6;
-  cardsInLine = 3;
-  cardsLines = 2;
-  easyCheck.classList.remove('selected');
-  midCheck.classList.add('selected');
-  heavyCheck.classList.remove('selected');
-  cardsIn.classList.remove('cardsIn1');
-  cardsIn.classList.add('cardsIn2');
-});
+function deleteCards() {
+  document.querySelector('.wrapper').style.display = 'block';
+  wrapperGame.style.display = 'none';
+  wrapperGame.innerHTML = '';
+  wrapperGame.className = 'wrap-game';
+}
 
-heavyLvl.addEventListener('click', () => {
-  lvl = 2;
-  cardsNumb = 10;
-  cardsInLine = 5;
-  cardsLines = 2;
-  easyCheck.classList.remove('selected');
-  midCheck.classList.remove('selected');
-  heavyCheck.classList.add('selected');
-  cardsIn.classList.remove('cardsIn1');
-  cardsIn.classList.add('cardsIn2');
-});
 
-btn.addEventListener('click', startGame(event));
+function renderCard(number) {
+  for(let i=0; i<number; i++) {
+    let card = document.createElement ('div');
+    let cardInner = document.createElement ('div');
+    let cardFront = document.createElement ('div');
+    let cardBack = document.createElement ('div');
+
+    card.className = 'flip-card';
+    wrapperGame.appendChild(card);
+
+    cardInner.className = 'flip-card__inner';
+    card.appendChild(cardInner);
+
+    cardFront.className = 'flip-card__front';
+    cardInner.appendChild(cardFront);
+
+    cardBack.className = 'flip-card__back';
+    cardInner.appendChild(cardBack);
+
+    let rotate = () => {
+      let number = Math.round(Math.random());
+      cardInner.classList.toggle('rotate');
+      if (number === 1) cardBack.classList.add('flip-card__back-bug');
+      let cards = document.querySelectorAll('.flip-card');
+      cards.forEach(card => card.addEventListener('click', deleteCards));
+      }
+      card.addEventListener('click', rotate);
+  }
+}
+
+function chooseLevel(level) {
+  switch(level) {
+    case 'Простой':
+    renderCard(3);
+    wrapperGame.classList.add('easy');
+    break;
+    case 'Средний':
+    renderCard(6);
+    wrapperGame.classList.add('middle');
+    break;
+    case 'Сложный':
+    renderCard(9);
+    wrapperGame.classList.add('hard');
+    break;
+  }
+}
 
 function startGame() {
-  return function() {
-    menu.classList.add('displayNone');
-    game.classList.remove('displayNone');
-    const newLine = document.createElement('div');
-    newLine.className = 'cardLine';
-    let imgStringEnd = generateCardsTemplate(cardsNumb, cardsInLine, cardsLines);
-    newLine.innerHTML = `${imgStringEnd}`;
-    cardsIn.append(newLine);
-
-    let cards = document.querySelectorAll('.card');
-    for (let i = 0; i < cards.length; i++) {
-      cards[i].addEventListener("click", flip(cards, i), {once: true});
-    }
-  };
+  let level = document.querySelector('.active').innerText;
+  chooseLevel(level);
+  document.querySelector('.wrapper').style.display = 'none';
+  wrapperGame.style.display = 'flex';
 }
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
-function generateCardsTemplate(numb, numbInLine, numbLines) {
-  let imgStringStart = `<div class="scene">
-  <div class="card">
-  <img src="image/cardback.png" alt="Рубашка" class="game__card game__card_front">`;
-  let imgStringEnd = ``;
-  let imgStringBug = `<img src="image/cardbug.png" alt="Карта баг" class="game__card game__card_back">
-  </div>
-  </div>`;
-  let imgStringFail = `<img src="image/cardover.png" alt="Карта ошибки" class="game__card game__card_back">
-  </div>
-  </div>`;
-  let imgLineBreak = `</div><div class="cardLine">`;
-  let bugNumb = getRandomInt(0, numb);
-  for (i = 0; i < numb; i++) {
-    if (i === bugNumb) {
-      imgStringEnd = imgStringEnd + imgStringStart + imgStringBug;
-    } else {
-      imgStringEnd = imgStringEnd + imgStringStart + imgStringFail;
-    }
-    if ((i % numbInLine === numbInLine - 1) && (i !== numb - 1)) {
-      imgStringEnd += imgLineBreak;
-    }
-  }
-  return imgStringEnd;
-}
-
-function flip(cardSequence, index) {
-  return function() {
-    cardSequence[index].classList.toggle("is-flipped");
-    cardSequence[index].addEventListener("click", backToMenu());
-    for (let j = 0; j < cardSequence.length; j++) {
-      cardSequence[j].removeEventListener("click", flip(cardSequence, j));
-    }
-  };
-}
-
-function backToMenu() {
-  return function() {
-    const oldLine = document.querySelector('.cardLine');
-    if (oldLine) {
-      oldLine.remove();
-    }
-    menu.classList.remove('displayNone');
-    game.classList.add('displayNone');
-  };
-}
+button.addEventListener('click', startGame);
