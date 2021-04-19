@@ -64,12 +64,3 @@ function chooseLevel(level) {
     break;
   }
 }
-
-function startGame() {
-  let level = document.querySelector('.active').innerText;
-  chooseLevel(level);
-  document.querySelector('.wrapper').style.display = 'none';
-  wrapperGame.style.display = 'flex';
-}
-
-button.addEventListener('click', startGame);

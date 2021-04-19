@@ -376,15 +376,6 @@ body {
   }
 }
 
-@media (max-width: 520px){
-  .card1 {
-    background-position: center;
-  }
-
-  .card2 {
-    background-position: center;
-  }
-}
 
 @media (max-width: 390px) {
   .flip-card {
